@@ -25,28 +25,7 @@ public class DemoApplication {
     @Bean
     public CommandLineRunner commandLineRunner(StudentRepository studentRepository) {
         return args -> {
-            Student student = new Student("Michael", "Johnson", "michael.johnson@example.com", 21);
-            StudentIdCard studentIdCard = new StudentIdCard("321543654");
 
-            student.addStudentIdCard(studentIdCard);
-
-            Book book1 = new Book("Spring Data JPA", LocalDateTime.now());
-            Book book2 = new Book("Data Structures", LocalDateTime.now().minusDays(5));
-            Book book3 = new Book("Databases", LocalDateTime.now().minusDays(50));
-
-            List.of(book1, book2, book3).forEach(student::addBook);
-
-            Course course1 = new Course("Spring Data JPA", "IT");
-            Course course2 = new Course("Angular", "IT");
-
-            Enrollment e1 = new Enrollment(
-                    new EnrollmentId(1L, 1L), student, course1, LocalDateTime.now());
-            Enrollment e2 = new Enrollment(
-                    new EnrollmentId(1L, 2L), student, course2, LocalDateTime.now().minusDays(5));
-
-            List.of(e1, e2).forEach(student::addEnrollment);
-
-            studentRepository.save(student);
         };
     }
 

@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import com.example.demo.entity.Book;
 import com.example.demo.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,5 +17,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     Optional<Student> findByEmail(@Param("emailId") String email);
 
     List<Student> findByAgeGreaterThanEqual(Integer age);
+
+    @Query("SELECT b FROM Student s INNER JOIN Book b on s.id = b.student.id where s.id = :student_id")
+    List<Book> getBooksIssued(@Param("student_id") Long id);
 
 }

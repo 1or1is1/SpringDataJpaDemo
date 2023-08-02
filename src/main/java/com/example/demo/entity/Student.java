@@ -77,8 +77,7 @@ public class Student {
     @OneToMany(
             mappedBy = "student",
             orphanRemoval = true,
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-            fetch = FetchType.LAZY
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE}
     )
     private final List<Book> books = new ArrayList<>();
 

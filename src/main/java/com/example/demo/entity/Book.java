@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.StringJoiner;
 
 @Entity(name = "Book")
@@ -47,7 +49,7 @@ public class Book {
     )
     private LocalDateTime createdAt;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "student_id",
             referencedColumnName = "id",
@@ -105,5 +107,18 @@ public class Book {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Book)) return false;
+        Book book = (Book) o;
+        return Objects.equals(getId(), book.getId()) && Objects.equals(getBookName(), book.getBookName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getBookName());
     }
 }
